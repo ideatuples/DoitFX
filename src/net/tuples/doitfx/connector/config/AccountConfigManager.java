@@ -1,22 +1,42 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Geuntaek Lee
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package net.tuples.doitfx.connector.config;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.UUID;
 import net.tuples.doitfx.connector.config.utils.PathOptions;
 
 
 /**
- *
- * @author ideatuples
- */
+ * AccountConfigManager class is to manage entire configuration 
+ * for both send and receive.
+ * 
+ * Primarily, we need to invoke when we use the library.
+ * 
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ * @see AccountConfigLoader
+ * @see AccountConfigSaver
+ * 
+ **/
 public class AccountConfigManager {
     
     
@@ -26,6 +46,10 @@ public class AccountConfigManager {
     private Map<String, Properties> rawRecvMap;
     private Map<String, Properties> rawSendMap;
 
+    /**
+     * The constructor of the class
+     * 
+     */
     public AccountConfigManager() {
         
         this.accConfigLoader = new AccountConfigLoader();
@@ -56,6 +80,16 @@ public class AccountConfigManager {
         return true;
     }
     
+    /**
+     * If you go to append new Properties object for newly added account,
+     * use this method 
+     * 
+     * @param pSvcPair The indicator of the account you want append.
+     * @param pDirection Send or Receive
+     * @param pTgtProps The Properties class you filled about the account.
+     * 
+     * @return True or False
+     */
     public final boolean setNewProps(final String pSvcPair,
             final PathOptions.Direction pDirection, final Properties pTgtProps) {
         
@@ -64,7 +98,7 @@ public class AccountConfigManager {
         
         return true;
     }
-    
+    /*
     public final boolean setEmptyRecvProps(final String pSvcPair) {
         
         final Properties newEmptyProps = new Properties();
@@ -113,6 +147,7 @@ public class AccountConfigManager {
         
         return true;
     }
+    */
     
     public final Properties getRawRecvProps(final String pSvcPair) {
         

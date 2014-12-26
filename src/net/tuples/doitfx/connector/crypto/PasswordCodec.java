@@ -1,8 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Geuntaek Lee
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package net.tuples.doitfx.connector.crypto;
 
 
@@ -22,14 +35,29 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 
 /**
- *
- * @author ideatuples
- */
+ * PasswordCodec is a codec class that was designed for 
+ * simplifying En/Decryption procedure.
+ * 
+ * This class is using Simple 'DES' algorithm to reduce En/Decryption time.
+ * 
+ * Initial Vector for En/Decryption is applied, 
+ * but it was not mentioned on official Java API document.
+ * 
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ **/
+
 public class PasswordCodec {
     
     private final byte[] initVector;
     private final AlgorithmParameterSpec algParamSpec;
     
+    /**
+     * The constructor of PasswordCodec.
+     * 
+     * No parameter is required.
+     * 
+     */
     public PasswordCodec() {
         
         this.initVector = new byte[] { 0x10, 0x10, 0x01, 0x04, 0x01, 0x01, 0x01, 0x02 };
@@ -37,6 +65,15 @@ public class PasswordCodec {
         
     }
     
+    /**
+     * Plaintext encryption method.
+     * 
+     * If you fill the 2 parameters, you will get encrypted byte array.
+     * 
+     * @param pTheSecretKey Randomly generated Key by KeyByteGenerator.
+     * @param pPlainBytes Converted plaintext to byte array.
+     * @return Encrypted byte array will be returned.
+     */
     public final byte[] activateEncryption(final Key pTheSecretKey, final byte[] pPlainBytes) {
         
         final Cipher encrypter;
@@ -70,6 +107,13 @@ public class PasswordCodec {
         return null;
     }
     
+    /**
+     * Ciphertext decryption method
+     * 
+     * @param pTheSecretKey The key that has stored in the KeyStore object.
+     * @param pCipherBytes The byte array type ciphertext to be decrypted.
+     * @return Decrypted byte array will be returned.
+     */
     public final byte[] activateDecryption(final Key pTheSecretKey, final byte[] pCipherBytes) {
         
         final Cipher decrypter;

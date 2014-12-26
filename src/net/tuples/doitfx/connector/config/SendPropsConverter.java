@@ -11,14 +11,35 @@ import net.tuples.doitfx.connector.config.session.send.SecuritySessionFactory;
 
 
 /**
- *
- * @author ideatuples
- */
+ * SendProsConverter class is to convert the configurations for SENDING
+ * which was stored into actual Properties for JavaMail.
+ * 
+ * JavaMail has its own Properties and it is not compatible 
+ * with the configurations we stored. 
+ * 
+ * Therefore, we need to convert it into actual format Properties object.
+ * 
+ * Of course, it has only one method which is declared to static.
+ * 
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ * @see ISecuritySession
+ * @see SecuritySessionFactory
+ * 
+ **/
+
 public class SendPropsConverter {
     
     private SendPropsConverter() {
         
     }
+    
+    /**
+     * Put a Properties object that you want to connect as a parameter.
+     * 
+     * @param pTgtProperties Properties object that you want to connect
+     * @return Converted Properties object.
+     **/
     
     public static Properties getActualProps(final Properties pTgtProperties) {
         
