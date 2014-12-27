@@ -1,8 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Geuntaek Lee
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package net.tuples.doitfx.connector.config;
 
 import java.io.IOException;
@@ -18,13 +31,26 @@ import java.util.logging.Logger;
 import net.tuples.doitfx.connector.config.utils.PathOptions;
 
 /**
- *
- * @author ideatuples
- */
+ * AccountConfigSaver class is to store newly generated account configuration.
+ * 
+ * This class is designed for storing new account configuration safely.
+ * It is at opposite position of AccountConfigLoader class.
+ * 
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ * 
+ **/
 public class AccountConfigSaver {
     
     private Writer propsWriter;
     private final Path defaultConfigPath;
+    
+    /**
+     * The constructor of the class.
+     * 
+     * There is no need to put parameters
+     * into when you create AccountConfigSaver.
+     */
 
     public AccountConfigSaver() {
         
@@ -41,8 +67,6 @@ public class AccountConfigSaver {
     }
     
     private boolean storeProps(final Path pConfFilePath, final Properties pTgtProperties) {
-        
-        System.out.println(pConfFilePath.toString());
         
         final Path theParentPath = pConfFilePath.getParent();
         
@@ -72,6 +96,15 @@ public class AccountConfigSaver {
         
         return false;
     }
+    
+    /**
+     * 
+     * @param pSvcPair The account indicator you want to generate.
+     * @param pDirection You have to decide its transfer direction, Send or Recv.
+     * @param pTgtProperties A Properties object you did fill with account information.
+     * 
+     * @return True or False
+     */
     
     public final boolean setProps(final String pSvcPair,
             final PathOptions.Direction pDirection, final Properties pTgtProperties) {

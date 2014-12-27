@@ -1,8 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 ideatuples
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package net.tuples.doitfx.connector;
 
 import java.util.Collection;
@@ -16,13 +29,37 @@ import javax.mail.Store;
 import javax.mail.Transport;
 
 /**
+ * This class is to perform those tasks to generate new Stores and
+ * cache Stores that was already established.
+ * 
+ * 
+ * With ConnectManager, you can easily access Stores.
+ * 
+ * As you know, Stores are for receiving messages 
+ * and Transports are sending messages.
  *
- * @author ideatuples
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ * @see Store
+ * @see Transport
  */
+
 public class ConnectManager {
+    
     
     private final Map<String, Store> storeCacheMap;
     private final Map<String, Transport> transportCacheMap;
+    
+     /**
+     *
+     * Constructor.
+     * <br />
+     * 
+     * There is no need to put parameter to invoke this class.
+     * ConnectManager is called by AppInitialiser which is a Singleton class.
+     * 
+     * @since version 0.0.1
+     */
     
     public ConnectManager() {
         this.storeCacheMap = new HashMap<>();
@@ -39,6 +76,11 @@ public class ConnectManager {
         return true;
     }
     
+    /**
+     * Checking out already established Store.
+     * @param pSvcPair The parameter to distinguish individual account.
+     * @return True of False
+     **/
     public final boolean checkExistingStore(final String pSvcPair) {
         
         if(!storeCacheMap.isEmpty() || storeCacheMap.containsKey(pSvcPair)) {
@@ -49,10 +91,27 @@ public class ConnectManager {
         return false;
     }
     
+    /**
+     * Getting a Store object that was already set by pSvcPair.
+     * 
+     * @param pSvcPair The parameter for distinguish individual account.
+     * @return A Store object that was associated with pSvcPair.
+     **/
+    
     public final Store getExistingStore(final String pSvcPair) {
         
         return storeCacheMap.get(pSvcPair);
     }
+    
+    /**
+     * Generating new Store object.
+     * 
+     * @param pSvcPair The parameter for distinguish individual account.
+     * @param pRecvSession To generate new Store object, we need to have a session of an account.
+     * Store object is related with Receiving message action, so we put a session for receiving.
+     * 
+     * @return get an existing Store object from Store Cache.
+     */
     
     public final Store generateNewStore(final String pSvcPair, 
             final Session pRecvSession) {
@@ -150,16 +209,32 @@ public class ConnectManager {
     }
     */
     
+    /**
+     * Getting all stores that has been cached.
+     * 
+     * @return A collection object of Stores.
+     */
     public Collection<Store> getEntireStores() {
         
         return storeCacheMap.values();
     }
     
+    /**
+     * Deletion of specific Store object from cache.
+     * 
+     * @param pSvcPair The parameter for distinguish individual account.
+     * @return The Store object we demanded, but deleted from cache.
+     */
     public final Store deleteStore(final String pSvcPair) {
         
         return storeCacheMap.remove(pSvcPair);
     }
     
+    /**
+     * Clear all Store object that has been cached. Simply, making it empty.
+     * 
+     * @return True or False
+     */
     public final boolean clearStoreCache() {
         
         storeCacheMap.clear();

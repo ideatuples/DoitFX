@@ -1,8 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Geuntaek Lee
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package net.tuples.doitfx.connector;
 
 import java.util.Collection;
@@ -20,9 +33,17 @@ import net.tuples.doitfx.core.MessageReceiver;
 import net.tuples.doitfx.core.MessageSender;
 
 /**
- *
- * @author ideatuples
- */
+ * Connector class is a facade pattern class 
+ * to establish connections easily by developers.
+ * 
+ * Primarily, we need to invoke when we use the library.
+ * 
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ * @see MessageSender
+ * @see MessageReceiver
+ **/
+
 public class Connector {
     
     private final AppInitialiser appInit;
@@ -35,7 +56,15 @@ public class Connector {
     private final MessageReceiver msgReceiver;
     private final MessageSender msgSender;
     
-    
+    /**
+     * The Constructor.
+     * 
+     * This is the constructor which initialise 'Manager' classes 
+     * and make them ready to make connections.
+     * 
+     * No need to put parameters in.
+     * 
+     **/
     public Connector() {
         
         this.appInit = AppInitialiser.getInstance();
@@ -73,6 +102,13 @@ public class Connector {
         return false;
     }
     
+    /**
+     * 
+     * Closing specific Store object explicitly.
+     * 
+     * @param pSvcPair The parameter to distinguish individual account.
+     * @return True or False
+     */
     public boolean closeStore(final String pSvcPair) {
         
         final Store cachedStore;
@@ -89,6 +125,13 @@ public class Connector {
         
         return false;
     }
+    
+    /**
+     * Closing all store objects. 
+     * 
+     * In other words, "Initialisation"
+     * @return True or False
+     */
     
     public boolean closeAllStores() {
         
@@ -111,6 +154,15 @@ public class Connector {
         return connectManager.clearStoreCache();
     }
     
+    /**
+     * One of the core methods, make connections through this method.
+     * 
+     * When you put pSvcPair value into the parameter you are ready to transfer 
+     * messages.
+     * 
+     * @param pSvcPair The parameter to distinguish individual account.
+     * @return True or False
+     */
     public boolean connect(final String pSvcPair) {
         
         final String appUUID;
@@ -127,11 +179,23 @@ public class Connector {
         return newRecvConnection(pSvcPair, accUUID, actualProps);
     }
     
+    /**
+     * Getting MessageReceiver object to receive messages 
+     * which is acting like remote controller.
+     * 
+     * @return MessageReceiver object.
+     */
     public final MessageReceiver getMessageReceiver() {
         
         return msgReceiver;
     }
     
+    /**
+     * Getting MessageSender object to send messages 
+     * which is acting like remote controller.
+     * 
+     * @return MessageSender object.
+     */
     public final MessageSender getMessageSender() {
         
         return msgSender;

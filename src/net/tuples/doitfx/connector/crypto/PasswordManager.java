@@ -1,8 +1,21 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 Geuntaek Lee
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
+
 package net.tuples.doitfx.connector.crypto;
 
 import java.io.DataInputStream;
@@ -32,9 +45,19 @@ import net.tuples.doitfx.connector.crypto.utils.KeyByteGenerator;
 import org.apache.commons.codec.binary.Base64;
 
 /**
- *
- * @author ideatuples
- */
+ * PasswordManager is a manager class to manage password related classes.
+ * 
+ * PasswordManager controls classes that a part of Java Cryptographic Extension
+ * (JCE) like KeyStore, Key and so on.
+ * 
+ * Also, PasswordManager stores ciphertext 
+ * that was encrypted to a file in format of byte.
+ * 
+ * Consequently, PasswordManager class is the set of entire En/Decryption.
+ * 
+ * @author Geunatek Lee
+ * @version 0.0.1, 26 Dec 2014
+ **/
 public class PasswordManager {
     
     private static final Path passcodeFilename = Paths.get("pass.code");
@@ -45,6 +68,14 @@ public class PasswordManager {
     
     private KeyStore pwStore;
     
+    /**
+     * The constructor of PasswordManager.
+     * 
+     * To call PasswordManager, we must know about the unique ID of the application
+     * which was generated at the first time of running the application.
+     * 
+     * @param pAppID - The unique ID of the Application.
+     */
 
     public PasswordManager(final String pAppID) {
         pwCodec = new PasswordCodec();
@@ -200,7 +231,18 @@ public class PasswordManager {
         return false;
     }
    
-    
+    /**
+     * The method for encryption.
+     * 
+     * Developers don't care of PasswordCodec.
+     * When developers want to encrypt plaintext, just call this method.
+     * 
+     * 
+     * @param pSvcPair The indicator of every account.
+     * @param pAccID The unique ID of every account.
+     * @param pPlainText Plaintext type password you want to use to connect.
+     * @return Returning the result of encryption. True or False.
+     */
     public final boolean setAccountKey(final String pSvcPair, 
             final String pAccID, final String pPlainText) {
         
@@ -246,6 +288,18 @@ public class PasswordManager {
         
     }
     
+    /**
+     * The method for decryption.
+     * 
+     * Developers don't care of PasswordCodec.
+     * When developers want to decrypt byte type ciphertext, 
+     * just call this method.
+     * 
+     * @param pSvcPair The indicator of every account.
+     * @param pAccID The unique ID of every account.
+     * @return Returning the result of decryption. 
+     * Plaintext of the password for a connection.
+     */
     public final String getAccountKey(final String pSvcPair, final String pAccID) {
         
         final byte[] decodedByteArray;
@@ -287,8 +341,12 @@ public class PasswordManager {
         return null;
     }
     
-    
-    
+    /**
+     * A method to check whether the password of pSvcPair is existing or not.
+     * 
+     * @param pSvcPair pSvcPair you want to check.
+     * @return True or False.
+     */
     public final boolean isThis(final String pSvcPair) {
         
         try {
@@ -303,6 +361,12 @@ public class PasswordManager {
         return false;
     }
     
+    /**
+     * A method for listing all SvcPair name on the screen.
+     * 
+     * @param pSvcPair pSvcPair you want to check.
+     * @return It's void.
+     */
     public final void enumerateKeys() {
         
         try {
