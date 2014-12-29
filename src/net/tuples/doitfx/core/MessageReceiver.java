@@ -219,7 +219,10 @@ public class MessageReceiver {
         }
         
         /**
-         * Generate new folder
+         * Generate new folder.
+         * 
+         * You have to get a Store object (cached or generated newly) from 
+         * ConnectManager object for the first parameter.
          * 
          * @param pTgtStore 
          * @param pFolderName The folder name that you want to name this folder.
@@ -253,7 +256,8 @@ public class MessageReceiver {
         }
         
         /**
-         * Delete a folder that has been existed on account.
+         * You have to get a Store object (cached or generated newly) from 
+         * ConnectManager object for the first parameter.
          * 
          * @param pTgtStore
          * @param pFolderName The name of the folder.
@@ -291,7 +295,8 @@ public class MessageReceiver {
         }
         
         /**
-         * Rename the name of a folder.
+         * You have to get a Store object (cached or generated newly) from 
+         * ConnectManager object for the first parameter.
          * 
          * @param pTgtStore
          * @param pSrcFolderName The original folder name
@@ -330,7 +335,13 @@ public class MessageReceiver {
             return false;
         }
         
-        
+        /**
+         * You have to get a Store object (cached or generated newly) from 
+         * ConnectManager object for the first parameter.
+         * 
+         * @param pTgtStore
+         * @return True or False
+         **/
         public static final int getSubFolderCounts(final Store pTgtStore) {
 
             final Folder rootFolder;

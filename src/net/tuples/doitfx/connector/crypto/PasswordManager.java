@@ -243,7 +243,7 @@ public class PasswordManager {
      * @param pPlainText Plaintext type password you want to use to connect.
      * @return Returning the result of encryption. True or False.
      */
-    public final boolean setAccountKey(final String pSvcPair, 
+    public final boolean encryptText(final String pSvcPair, 
             final String pAccID, final String pPlainText) {
         
         final byte[] plainByteArray;
@@ -300,7 +300,7 @@ public class PasswordManager {
      * @return Returning the result of decryption. 
      * Plaintext of the password for a connection.
      */
-    public final String getAccountKey(final String pSvcPair, final String pAccID) {
+    public final String decryptText(final String pSvcPair, final String pAccID) {
         
         final byte[] decodedByteArray;
         final byte[] decryptedByteArray;
@@ -364,9 +364,7 @@ public class PasswordManager {
     /**
      * A method for listing all SvcPair name on the screen.
      * 
-     * @param pSvcPair pSvcPair you want to check.
-     * @return It's void.
-     */
+     **/
     public final void enumerateKeys() {
         
         try {

@@ -111,7 +111,7 @@ public class SessionManager {
         final String password;
         
         username = pSvcPair.split("\\/")[1];
-        password = pwManager.getAccountKey(pSvcPair, pAccUUID).trim();
+        password = pwManager.decryptText(pSvcPair, pAccUUID).trim();
         
         pwAuth = new PWAuthenticator(username, password);
         //pwAuth = new PWAuthenticator(username, password);

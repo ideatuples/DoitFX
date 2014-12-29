@@ -48,7 +48,7 @@ public class KeyByteGenerator {
     /**
      * Generate a key to be stored in KeyStore.
      * 
-     * @return SecretKey type constant
+     * @return SecretKey type constant.
      **/
     
     public static final SecretKey activateKeyGeneration() {
